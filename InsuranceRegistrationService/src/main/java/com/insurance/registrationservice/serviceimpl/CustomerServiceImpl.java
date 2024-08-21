@@ -22,6 +22,33 @@ public class CustomerServiceImpl implements CustomerServiceI{
 		return vehicledata;
 	}
 
+	@Override
+	public Iterable<Vehicle> SelectAllVehicle() {
+		
+		Iterable<Vehicle>vehicledata=vehiclerepository.findAll();
+		
+		
+		return vehicledata;
+	}
+
+	@Override
+	public void RemoveVehicleById(int vehicleid) {
+		
+		vehiclerepository.deleteById(vehicleid);
+		
+	
+	}
+
+	@Override
+	public Vehicle UpdateVehicleData(Vehicle vehicle, int vehicleid) {
+		
+	     vehiclerepository.findById(vehicleid);
+		
+	Vehicle vehicledata=vehiclerepository.save(vehicle);
+		
+		return vehicledata;
+	}
+
 	
 
 

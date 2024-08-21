@@ -8,4 +8,10 @@ public interface CustomerServiceI {
 
 	Vehicle insertdataofcustomer(Vehicle vehicle);
 
+	Iterable<Vehicle> SelectAllVehicle();
+
+	void RemoveVehicleById(int vehicleid);
+
+	Vehicle UpdateVehicleData(Vehicle vehicle, int vehicleid);
+
 }
