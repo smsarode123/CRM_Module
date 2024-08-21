@@ -1,5 +1,7 @@
 package com.insurance.registrationservice.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.insurance.registrationservice.model.Customer;
@@ -14,6 +16,12 @@ public class CustomerServiceImpl implements CustomerServiceI{
 	public Customer saveCustomers(Customer customer) {
 		
 		return repository.save(customer);
+	}
+
+	@Override
+	public List<Customer> getAllCustomer() {
+		
+		return repository.findAll();
 	}
 
 
