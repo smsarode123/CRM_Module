@@ -2,9 +2,6 @@ package com.insurance.registrationservice.serviceimpl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import com.insurance.registrationservice.model.Vehicle;
 import com.insurance.registrationservice.repository.CustomerRepository;
 import com.insurance.registrationservice.repository.VehicleRepository;
 import com.insurance.registrationservice.service.CustomerServiceI;
@@ -50,6 +47,30 @@ public class CustomerServiceImpl implements CustomerServiceI{
 	}
 
 	
+
+	@Override
+	public Customer saveCustomers(Customer customer) {
+		
+		return repository.save(customer);
+	}
+
+	@Override
+	public List<Customer> getAllCustomer() {
+		
+		return repository.findAll();
+	}
+
+	@Override
+	public Customer getSingleVehicleById(int customerId) {
+		
+		Optional<Customer> customer = repository.findById(customerId);
+
+		if (customer.isPresent()) {
+
+			return customer.get();
+		} else {
+			throw new InvalidVehicleIdException("Vehicle id " + customerId + " is not valid");
+		}	}
 
 
 }
