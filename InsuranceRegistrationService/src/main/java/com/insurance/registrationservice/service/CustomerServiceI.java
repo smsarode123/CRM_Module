@@ -10,4 +10,6 @@ public interface CustomerServiceI {
 
 	List<Customer> getAllCustomer();
 
+	Customer getSingleVehicleById(int customerId);
+
 }
