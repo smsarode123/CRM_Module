@@ -1,16 +1,11 @@
 package com.insurance.registrationservice.model;
 
-import java.util.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,5 +25,15 @@ public class Vehicle {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Policy policy;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int vehicleid;
+	private int vehiclercnumber;
+	private String vehicleownername;
+	private String vehicletype;
+	private String vehiclemanufacturename;
+	private String vehiclemodel;
+	private String vehicleRegistrationDate;
+	private String vehicleRegistrationUpto;
 
 }
