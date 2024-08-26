@@ -39,41 +39,5 @@ public class CustomerController {
 		
 		return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
 	}
-	@PostMapping("/saveplicy")
-	public  ResponseEntity<Policy> savePolicy(@RequestBody Policy policy)
-	{
-		Policy policyRef=csi.savePolicy(policy);
-		return new ResponseEntity<Policy>(policyRef, HttpStatus.CREATED);
-	}
-	
-	@GetMapping("/getAllPolicy")
-	public ResponseEntity<List<Policy>> getAllPolicy()
-	{
-		List<Policy> policies =csi.getAllPolicy();
-		
-		return new ResponseEntity<List<Policy>>(policies, HttpStatus.OK);
-	}
-	@GetMapping("/getSinglepolicy/{policyId}")
-	public ResponseEntity<Policy> getSinglePolicy(@PathVariable int policyId){
-		Policy policy=csi.getSinglePolicy(policyId);
-		
-		
-		return new ResponseEntity<Policy>(policy,HttpStatus.OK);
-		
-	}
-	@PutMapping("updatepolicyById/{policyId}")
-	public ResponseEntity<Policy> updatePolicyById(@RequestBody Policy policy,@PathVariable int policyId){
-		Policy policy1=csi.updatePolicyById(policy);
-		
-		return new ResponseEntity<Policy>(policy1,HttpStatus.OK);
-		
-	}
-	@DeleteMapping("dalatepolicyById/{policyId}")
-	public ResponseEntity<String> deletePolicyByPolicyId(@PathVariable int policyId){
-		csi.deletePolicyByPolicyId(policyId);
-		
-		return new ResponseEntity<String>(HttpStatus.OK);
-		
-	}
 	
 }
