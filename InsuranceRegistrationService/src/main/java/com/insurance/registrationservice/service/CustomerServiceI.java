@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.insurance.registrationservice.model.Customer;
 import com.insurance.registrationservice.model.Vehicle;
+import com.insurance.registrationservice.model.Policy;
 
 public interface CustomerServiceI {
 
@@ -11,7 +12,6 @@ public interface CustomerServiceI {
 
 	List<Customer> getAllCustomer();
 
-	Vehicle insertdataofcustomer(Vehicle vehicle);
 
 	Iterable<Vehicle> SelectAllVehicle();
 
@@ -24,5 +24,17 @@ public interface CustomerServiceI {
 	Customer updateCustomer(Customer customer, int customerId);
 
 	void deleteCustomer(int customerId);
+
+	Policy savePolicy(Policy policy);
+
+	List<Policy> getAllPolicy();
+
+	Policy getSinglePolicy(int policyId);
+
+	Policy updatePolicyById(Policy policy);
+
+	void deletePolicyByPolicyId(int policyId);
+
+	Vehicle insertdataofcustomer(Vehicle vehicle);
 
 }

@@ -8,15 +8,20 @@ import org.springframework.stereotype.Service;
 import com.insurance.registrationservice.exception.InvalidCustomerIdException;
 import com.insurance.registrationservice.model.Customer;
 import com.insurance.registrationservice.model.Vehicle;
+import com.insurance.registrationservice.model.Policy;
 import com.insurance.registrationservice.repository.CustomerRepository;
 import com.insurance.registrationservice.repository.VehicleRepository;
+import com.insurance.registrationservice.repository.PolicyRepository;
 import com.insurance.registrationservice.service.CustomerServiceI;
 
 @Service
 public class CustomerServiceImpl implements CustomerServiceI {
 
 	private CustomerRepository repository;
+
 	private VehicleRepository vehiclerepository;
+
+	private PolicyRepository policyrepository;
 
 	@Override
 	public Vehicle insertdataofcustomer(Vehicle vehicle) {
@@ -80,31 +85,58 @@ public class CustomerServiceImpl implements CustomerServiceI {
 
 	@Override
 	public Customer updateCustomer(Customer customer, int customerId) {
-		Optional<Customer> customerRef =repository.findById(customerId);
-		
-		if(customerRef.isPresent()) {
+		Optional<Customer> customerRef = repository.findById(customerId);
+
+		if (customerRef.isPresent()) {
 			return repository.save(customer);
 		}
-		
+
 		else {
 			throw new InvalidCustomerIdException("Customer id " + customerId + " is not valid");
 		}
-		
+
 	}
 
 	@Override
 	public void deleteCustomer(int customerId) {
-		
-		Optional<Customer> customerRef=repository.findById(customerId);
-		
-		if(customerRef.isPresent()) 
-		{
+
+		Optional<Customer> customerRef = repository.findById(customerId);
+
+		if (customerRef.isPresent()) {
 			repository.deleteById(customerId);
-		}
-		else {
+		} else {
 			throw new InvalidCustomerIdException("Customer id " + customerId + " is not valid");
- 
+
 		}
+	}
+
+	public Policy savePolicy(Policy policy) {
+
+		return policyrepository.save(policy);
+	}
+
+	@Override
+	public List<Policy> getAllPolicy() {
+
+		return policyrepository.findAll();
+	}
+
+	@Override
+	public Policy getSinglePolicy(int policyId) {
+
+		return policyrepository.findById(policyId).get();
+	}
+
+	@Override
+	public Policy updatePolicyById(Policy policy) {
+
+		return policyrepository.save(policy);
+	}
+
+	@Override
+	public void deletePolicyByPolicyId(int policyId) {
+
+		policyrepository.deleteById(policyId);
 	}
 
 }

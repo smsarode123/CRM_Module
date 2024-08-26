@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.registrationservice.model.Customer;
-import com.insurance.registrationservice.model.Vehicle;
 import com.insurance.registrationservice.service.CustomerServiceI;
-
 
 @RestController
 public class CustomerController {
@@ -41,28 +39,26 @@ public class CustomerController {
 
 	@GetMapping("/getSingleCustomer/{customerId}")
 	public ResponseEntity<Customer> getSingleCustomer(@PathVariable("customerId") int customerId) {
-		
+
 		Customer customerRef = csi.getSingleCustomerById(customerId);
 
 		return new ResponseEntity<Customer>(customerRef, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/updateCustomer/{customerId}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") int customerId, @RequestBody Customer customer)
-	{
-		
-		Customer customerRef = csi.updateCustomer(customer,customerId);
-		
+	public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") int customerId,
+			@RequestBody Customer customer) {
+
+		Customer customerRef = csi.updateCustomer(customer, customerId);
+
 		return new ResponseEntity<Customer>(customerRef, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("deleteCustomer/{customerId}")
-	public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") int customerId)
-	{
-	    csi.deleteCustomer(customerId);
-	    
-	    return new ResponseEntity<Customer>(HttpStatus.OK);
+	public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") int customerId) {
+		csi.deleteCustomer(customerId);
+
+		return new ResponseEntity<Customer>(HttpStatus.OK);
 	}
-	
-	
+
 }
