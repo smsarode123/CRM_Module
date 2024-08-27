@@ -1,16 +1,32 @@
 package com.insurance.registrationservice.service;
 
+
+
 import java.util.List;
+
 
 import com.insurance.registrationservice.model.Customer;
 import com.insurance.registrationservice.model.Vehicle;
 import com.insurance.registrationservice.model.Policy;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.insurance.registrationservice.model.Document;
+
+
 public interface CustomerServiceI {
 
-	Customer saveCustomers(Customer customer);
+	public Document uploadDocuments(String documentJson, MultipartFile pancard, MultipartFile adharcard, MultipartFile profile,
+			MultipartFile vehicleRc, MultipartFile vehicle);
 
-	List<Customer> getAllCustomer();
+	public List<Document> getAllDocumentsDetails();
+
+	public Document getSingleDocumentDetails(int documentId);
+
+	public void deleteDocumentById(int documentId);
+
+	public Document updateDocumentDetails(String documentJson, MultipartFile pancard, MultipartFile adharcard,
+			MultipartFile profile, MultipartFile vehicleRc, MultipartFile vehicle);
 
 
 	Iterable<Vehicle> SelectAllVehicle();
@@ -36,5 +52,9 @@ public interface CustomerServiceI {
 	void deletePolicyByPolicyId(int policyId);
 
 	Vehicle insertdataofcustomer(Vehicle vehicle);
+
+	public Customer saveCustomers(Customer customer);
+
+	public List<Customer> getAllCustomer();
 
 }
