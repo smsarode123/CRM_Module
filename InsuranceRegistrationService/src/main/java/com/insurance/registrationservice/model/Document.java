@@ -1,5 +1,7 @@
 package com.insurance.registrationservice.model;
 
+import java.util.Arrays;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,14 @@ public class Document {
 	@Lob
 	@Column(length = 999999999)
 	private byte [] vehicleImage;
+
+	@Override
+	public String toString() {
+		return "Document [documentId=" + documentId + ", pancardImage=" + Arrays.toString(pancardImage)
+				+ ", adharcardImgae=" + Arrays.toString(adharcardImgae) + ", profileImage="
+				+ Arrays.toString(profileImage) + ", vehicleRcImage=" + Arrays.toString(vehicleRcImage)
+				+ ", vehicleImage=" + Arrays.toString(vehicleImage) + "]";
+	}
 
 
 }
