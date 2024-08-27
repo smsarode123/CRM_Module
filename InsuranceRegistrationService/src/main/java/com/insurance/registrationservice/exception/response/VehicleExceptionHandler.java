@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.insurance.registrationservice.dto.ErrorResponse;
 import com.insurance.registrationservice.exception.InvalidCustomerIdException;
+import com.insurance.registrationservice.exception.InvalidPolicyIdException;
 import com.insurance.registrationservice.exception.InvalidVehicleIdException;
 
 
@@ -32,6 +33,15 @@ public class VehicleExceptionHandler {
 		
 		return new ResponseEntity<ErrorResponse>(response, HttpStatus.NOT_FOUND);
 	}
+	
+	
+    @ExceptionHandler(InvalidPolicyIdException.class)
+	public ResponseEntity<ErrorResponse> handlerInvalidPolicyId(InvalidPolicyIdException ipe){
+    	
+        ErrorResponse response = new ErrorResponse(ipe.getMessage(),ipe.getClass().getName(),new Date(), 404);
 
+		
+		return new ResponseEntity<ErrorResponse>(response, HttpStatus.NOT_FOUND);
+    }
 }
 

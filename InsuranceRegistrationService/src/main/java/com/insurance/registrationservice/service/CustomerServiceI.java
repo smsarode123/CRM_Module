@@ -31,7 +31,7 @@ public interface CustomerServiceI {
 
 	Policy getSinglePolicy(int policyId);
 
-	Policy updatePolicyById(Policy policy);
+	Policy updatePolicyById(Policy policy, int policyId);
 
 	void deletePolicyByPolicyId(int policyId);
 

@@ -43,7 +43,7 @@ public class PolicyController {
 
 	@PutMapping("updatepolicyById/{policyId}")
 	public ResponseEntity<Policy> updatePolicyById(@RequestBody Policy policy, @PathVariable int policyId) {
-		Policy policy1 = csi.updatePolicyById(policy);
+		Policy policy1 = csi.updatePolicyById(policy,policyId);
 
 		return new ResponseEntity<Policy>(policy1, HttpStatus.OK);
 

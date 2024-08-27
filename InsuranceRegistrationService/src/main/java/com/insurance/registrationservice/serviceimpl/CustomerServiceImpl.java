@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.insurance.registrationservice.exception.InvalidCustomerIdException;
+import com.insurance.registrationservice.exception.InvalidPolicyIdException;
 import com.insurance.registrationservice.model.Customer;
 import com.insurance.registrationservice.model.Vehicle;
 import com.insurance.registrationservice.model.Policy;
@@ -110,6 +111,8 @@ public class CustomerServiceImpl implements CustomerServiceI {
 		}
 	}
 
+	
+	
 	public Policy savePolicy(Policy policy) {
 
 		return policyrepository.save(policy);
@@ -124,19 +127,45 @@ public class CustomerServiceImpl implements CustomerServiceI {
 	@Override
 	public Policy getSinglePolicy(int policyId) {
 
-		return policyrepository.findById(policyId).get();
+		Optional<Policy> policy= policyrepository.findById(policyId);
+
+		if (policy.isPresent()) {
+
+			return policy.get();
+		} else {
+			throw new InvalidPolicyIdException("Policy id " + policyId + " is not valid");
+		}
 	}
 
+	
 	@Override
-	public Policy updatePolicyById(Policy policy) {
+	public Policy updatePolicyById(Policy policy, int policyId) {
+		
+		Optional<Policy> policyRef = policyrepository.findById(policyId);
 
-		return policyrepository.save(policy);
+		if (policyRef.isPresent()) {
+			return policyrepository.save(policy);
+		}
+
+		else {
+			throw new InvalidPolicyIdException("policy id " +  policyId + " is not valid");
+		}
 	}
-
+   
+	
 	@Override
 	public void deletePolicyByPolicyId(int policyId) {
 
-		policyrepository.deleteById(policyId);
+
+		Optional<Policy> policyRef = policyrepository.findById(policyId);
+
+		if (policyRef.isPresent()) {
+			policyrepository.deleteById(policyId);
+		} else {
+			throw new InvalidPolicyIdException("Policy id " + policyId + " is not valid");
+
+		}
+
 	}
 
 }

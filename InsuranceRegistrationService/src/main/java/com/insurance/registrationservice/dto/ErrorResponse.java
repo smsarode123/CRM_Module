@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class ErrorResponse {
 	
+
 	private String message;
 	private String className;
 	private Date responseDate;
