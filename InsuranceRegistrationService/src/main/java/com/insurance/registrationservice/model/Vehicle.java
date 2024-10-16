@@ -38,7 +38,8 @@ public class Vehicle {
 	@Lob
 	@Column(length = 999999999)
 	private byte [] vehicleImage;
-	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Policy policy;
 
 	
 }

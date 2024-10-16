@@ -18,7 +18,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insurance.registrationservice.exceptions.DocumentsNotFoundByIdException;
-import com.insurance.registrationservice.exceptions.DocumentsNotUploadException;
 import com.insurance.registrationservice.exceptions.DocumentsNotUploadedYetException;
 
 import com.insurance.registrationservice.model.Customer;
