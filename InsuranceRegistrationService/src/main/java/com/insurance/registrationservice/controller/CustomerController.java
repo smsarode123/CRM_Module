@@ -1,4 +1,4 @@
-package com.insurance.registrationservice.controller;
+			package com.insurance.registrationservice.controller;
 
 
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.insurance.registrationservice.model.Customer;
 import com.insurance.registrationservice.service.CustomerServiceI;
@@ -28,8 +28,13 @@ public class CustomerController {
 	CustomerServiceI csi;
 
 	@PostMapping("/savecustomer")
-	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-		Customer customerRef = csi.saveCustomers(customer);
+	public ResponseEntity<Customer> saveCustomer(@RequestPart ("pancard") MultipartFile pancard,
+			                                     @RequestPart ("adharcard") MultipartFile adharcard,
+			                                     @RequestPart ("data") String jsondata,
+			                                     @RequestPart ("profile") MultipartFile profile,
+			                                     @RequestPart("vehical-photo") MultipartFile vehicalPhoto,
+			                                     @RequestPart("rc-book") MultipartFile rcBook) {
+		Customer customerRef = csi.saveCustomers(profile,pancard,adharcard,jsondata,vehicalPhoto,rcBook);
 
 		return new ResponseEntity<Customer>(customerRef, HttpStatus.CREATED);
 

@@ -51,10 +51,14 @@ public interface CustomerServiceI {
 
 	void deletePolicyByPolicyId(int policyId);
 
-	Vehicle insertdataofcustomer(Vehicle vehicle);
 
-	public Customer saveCustomers(Customer customer);
+
+
 
 	public List<Customer> getAllCustomer();
+
+	public Customer saveCustomers(MultipartFile pancard, MultipartFile adharcard, MultipartFile adharcard2, String jsondata, MultipartFile vehicalPhoto, MultipartFile rcBook);
+
+	public Vehicle insertdataofcustomer(MultipartFile vehiclephoto, MultipartFile rcphoto);
 
 }

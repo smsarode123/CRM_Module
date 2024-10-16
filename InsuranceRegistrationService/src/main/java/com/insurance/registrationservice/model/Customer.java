@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -27,17 +29,32 @@ public class Customer {
 	private String customerLastName;
 	private String customerAddress;
 	private long customerContactNumber;
-	private long customerAdharNumber;
+	private long customerAadharNumber;
 	private String customerEmailId;
 	private String customerPancardNumber;
 	private Date customerDateOfBirth;
 	private String customerGender;
 	private String customerUsername;
 	private String customerPassword;
+	
+	@Lob
+	@Column(length = 999999999)
+	private byte [] pancardImage;	
+
+	@Lob
+	@Column(length = 999999999)
+	private byte [] adharcardImgae;
+
+	@Lob
+	@Column(length = 999999999)
+	private byte [] profileImage;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Policy policy;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Vehicle> vehicle;
+	
+	
 
 }
 

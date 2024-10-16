@@ -1,10 +1,13 @@
-package com.insurance.registrationservice.serviceimpl;
+  package com.insurance.registrationservice.serviceimpl;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +36,7 @@ import com.insurance.registrationservice.repository.PolicyRepository;
 import com.insurance.registrationservice.repository.DocumentRepository;
 
 import com.insurance.registrationservice.service.CustomerServiceI;
+import com.insurence.registrationservice.utility.Utility;
 
 @Service
 
@@ -42,6 +46,11 @@ public class CustomerServiceImpl implements CustomerServiceI{
 
 	@Autowired private DocumentRepository documentRepository;
 	
+	@Autowired JavaMailSender mailsender;
+	
+	@Value("${spring.mail.username}")
+	private static  String FROM_MAIL;
+	
 	
 
 
@@ -49,14 +58,7 @@ public class CustomerServiceImpl implements CustomerServiceI{
 
 	private PolicyRepository policyrepository;
 
-	@Override
-
-	public Vehicle insertdataofcustomer(Vehicle vehicle) {
-
-		Vehicle vehicledata = vehiclerepository.save(vehicle);
-
-		return vehicledata;
-	}
+	
 
 	@Override
 	public Iterable<Vehicle> SelectAllVehicle() {
@@ -129,10 +131,7 @@ public class CustomerServiceImpl implements CustomerServiceI{
 
 	}
 
-	@Override
-	public Customer saveCustomers(Customer customer) {
-		return repository.save(customer);
-	}
+	
 
 	@Override
 	public Customer getSingleCustomerById(int customerId) {
@@ -244,6 +243,75 @@ public class CustomerServiceImpl implements CustomerServiceI{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public Customer saveCustomers(MultipartFile profile,MultipartFile pancard, MultipartFile adharcard, String jsondata, MultipartFile vehicalPhoto, MultipartFile rcBook) {
+		
+		   
+		   
+		   ObjectMapper mapper=new ObjectMapper();
+		   
+		    
+			    Customer customer = new Customer();
+				
+			    try {
+			    	   customer = mapper.readValue(jsondata, Customer.class);
+						String fivechar=customer.getCustomerFirstName().substring(0, 4);
+						customer.setCustomerUsername(Utility.genrateUsername(fivechar));
+						customer.setCustomerPassword(Utility.genratePassword(fivechar));
+								
+						customer.setProfileImage(profile.getBytes());
+						customer.setPancardImage(pancard.getBytes());
+						customer.setAdharcardImgae(adharcard.getBytes());
+						customer.getVehicle().get(0).setVehicleImage(vehicalPhoto.getBytes());
+						customer.getVehicle().get(0).setVehicleRcImage(rcBook.getBytes());
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    
+			    SimpleMailMessage msg=new SimpleMailMessage();
+			    
+			 
+				    msg.setFrom(FROM_MAIL	);
+				    
+				    msg.setTo(customer.getCustomerEmailId());
+				   
+					msg.setSubject("Your Account iS created");
+					
+					msg.setText("Username: " + customer.getCustomerUsername() + "\nPassword: " + customer.getCustomerPassword());
+					
+					mailsender.send(msg);
+			    
+			    
+			    
+			    return repository.save(customer);
+	}
+
+	@Override
+	public Vehicle insertdataofcustomer(MultipartFile vehiclephoto, MultipartFile rcphoto) {
+		
+		Vehicle vehicle=new Vehicle();
+		
+		ObjectMapper mapper=new ObjectMapper();
+		
+		try {
+					vehicle.setVehicleImage(vehiclephoto.getBytes());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					vehicle.setVehicleRcImage(rcphoto.getBytes());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 
+			
+		  return vehiclerepository.save(vehicle);
 	}
 
 	

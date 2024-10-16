@@ -1,4 +1,4 @@
-package com.insurance.registrationservice.controller;
+ package com.insurance.registrationservice.controller;
 
 import java.util.List;
 
@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.insurance.registrationservice.model.Vehicle;
 import com.insurance.registrationservice.service.CustomerServiceI;
@@ -23,10 +25,10 @@ public class VehicleHomeController {
 	
 	
 	@PostMapping("/AddVehicle")
-	public ResponseEntity <Vehicle> Adddatatovehicle(@RequestBody Vehicle vehicle)
+	public ResponseEntity <Vehicle> Adddatatovehicle(@RequestPart ("vehiclephoto") MultipartFile vehiclephoto,@RequestPart ("rcphoto") MultipartFile rcphoto)
 	{
 		
-		Vehicle vehicledata=custumerservice.insertdataofcustomer(vehicle);
+		Vehicle vehicledata=custumerservice.insertdataofcustomer(vehiclephoto,rcphoto);
 		
 		return new ResponseEntity <Vehicle>(vehicledata, HttpStatus.CREATED);
 	}
