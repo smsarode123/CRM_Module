@@ -51,6 +51,8 @@ public class Customer {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Policy policy;
+	
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Vehicle> vehicle;
 	

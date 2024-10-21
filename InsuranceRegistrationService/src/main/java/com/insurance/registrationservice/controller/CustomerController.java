@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.insurance.registrationservice.model.Customer;
 import com.insurance.registrationservice.service.CustomerServiceI;
-
+@CrossOrigin("http://localhost:3000")
 @RestController
 public class CustomerController {
 
@@ -28,16 +29,17 @@ public class CustomerController {
 	CustomerServiceI csi;
 
 	@PostMapping("/savecustomer")
-	public ResponseEntity<Customer> saveCustomer(@RequestPart ("pancard") MultipartFile pancard,
+	public ResponseEntity<Customer> saveCustomer(
+												 @RequestPart ("data") String jsondata,
+												 @RequestPart ("pancard") MultipartFile pancard,
 			                                     @RequestPart ("adharcard") MultipartFile adharcard,
-			                                     @RequestPart ("data") String jsondata,
 			                                     @RequestPart ("profile") MultipartFile profile,
-			                                     @RequestPart("vehical-photo") MultipartFile vehicalPhoto,
+			                                     @RequestPart("vehical") MultipartFile vehicalPhoto,
 			                                     @RequestPart("rc-book") MultipartFile rcBook) {
 		Customer customerRef = csi.saveCustomers(profile,pancard,adharcard,jsondata,vehicalPhoto,rcBook);
 
 		return new ResponseEntity<Customer>(customerRef, HttpStatus.CREATED);
-
+ 
 	}
 
 	@GetMapping("/getAllCustomer")
