@@ -167,7 +167,7 @@ public class CustomerServiceImpl implements CustomerServiceI {
             MultipartFile vehicalPhoto, MultipartFile rcBook) {
 
         ObjectMapper mapper = new ObjectMapper();
-        Customer customer = new Customer();
+        Customer customer = null;
         try {
             customer = mapper.readValue(jsondata, Customer.class);
             String fivechar = customer.getCustomerFirstName().substring(0, 4);
@@ -204,8 +204,11 @@ public class CustomerServiceImpl implements CustomerServiceI {
             msg.setText("Username: " + customer.getCustomerUsername() + "\nPassword: " + customer.getCustomerPassword());
             mailsender.send(msg);
         }
+        if(customer!=null)
 
         return repository.save(customer);
+        else
+        throw new RuntimeException("Something went wrong") ;
     }
 
     @Override

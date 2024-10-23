@@ -28,13 +28,14 @@ public class CustomerController {
 	@Autowired
 	CustomerServiceI csi;
 
+	
 	@PostMapping("/savecustomer")
 	public ResponseEntity<Customer> saveCustomer(
 												 @RequestPart ("data") String jsondata,
 												 @RequestPart ("pancard") MultipartFile pancard,
 			                                     @RequestPart ("adharcard") MultipartFile adharcard,
 			                                     @RequestPart ("profile") MultipartFile profile,
-			                                     @RequestPart("vehical") MultipartFile vehicalPhoto,
+			                                     @RequestPart("vehicle") MultipartFile vehicalPhoto,
 			                                     @RequestPart("rc-book") MultipartFile rcBook) {
 		Customer customerRef = csi.saveCustomers(profile,pancard,adharcard,jsondata,vehicalPhoto,rcBook);
 

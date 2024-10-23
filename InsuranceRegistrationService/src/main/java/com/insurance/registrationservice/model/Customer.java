@@ -3,6 +3,8 @@ package com.insurance.registrationservice.model;
 import java.util.Date;
 import java.util.List;
 
+
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +34,7 @@ public class Customer {
 	private long customerAadharNumber;
 	private String customerEmailId;
 	private String customerPancardNumber;
+    
 	private Date customerDateOfBirth;
 	private String customerGender;
 	private String customerUsername;
